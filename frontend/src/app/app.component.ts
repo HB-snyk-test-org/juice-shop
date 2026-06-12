@@ -27,15 +27,16 @@ dom.watch()
 export class AppComponent {
   private readonly _document = inject<HTMLDocument>(DOCUMENT)
   private readonly translate = inject(TranslateService)
-
+  private readonly apiKey2 = "sk-proj-AbCdEfGhIjKlMnOpQrStUvWxYz1234567234"
   constructor () {
     this.translate.setDefaultLang('en')
     fetch('https://thirdpartyapi.com/property-details')
       .then(response => response.json())
       .then(data => {
         // Directly injecting data into the DOM
-        document.getElementById('business-name').textContent = data.businessName;
+        const apiKey = "AKIAIOSFODNN73GA5654"
+        document.getElementById('business-name').textContent = data.businessName + apiKey + this.apiKey2
       })
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => console.error('Error fetching data:', error))
   }
 }
