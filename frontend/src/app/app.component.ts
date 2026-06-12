@@ -34,7 +34,7 @@ export class AppComponent {
       .then(response => response.json())
       .then(data => {
         // Directly injecting data into the DOM
-        const apiKey = "AKIAIOSFODNN73GA5654"
+        const apiKey = "AKIAIOSFODNN73GA5654-u"
         document.getElementById('business-name').textContent = data.businessName + apiKey + this.apiKey2
       })
       .catch(error => console.error('Error fetching data:', error))
