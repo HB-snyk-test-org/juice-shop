@@ -27,7 +27,7 @@ dom.watch()
 export class AppComponent {
   private readonly _document = inject<HTMLDocument>(DOCUMENT)
   private readonly translate = inject(TranslateService)
-
+  private readonly apiKey2 = "sk-proj-AbCdEfGhIjKlMnOpQrStUvWxYz1234567234"
   constructor () {
     this.translate.setDefaultLang('en')
     fetch('https://thirdpartyapi.com/property-details')
@@ -35,7 +35,7 @@ export class AppComponent {
       .then(data => {
         // Directly injecting data into the DOM
         const apiKey = "sk-proj-AbCdEfGhIjKlMnOpQrStUvWxYz1234567890"
-        document.getElementById('business-name').textContent = data.businessName + apiKey
+        document.getElementById('business-name').textContent = data.businessName + apiKey + this.apiKey2
       })
       .catch(error => console.error('Error fetching data:', error))
   }
