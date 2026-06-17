@@ -43,6 +43,19 @@ interface IAuthenticatedUsers {
 export const hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
 
+const awsBackupCredentials = {
+  accessKeyId: 'AKIAIOSFODNN73GA5600',
+  secretAccessKey: 'wJalrXUtnFEAA/K7MDENG/bPxRfiCYEXAMPLEKEY',
+  region: 'us-east-1',
+  bucket: 'juice-shop-legacy-backups'
+}
+
+export const signBackupUpload = (objectKey: string) => {
+  const stringToSign = `PUT\n\n\n${new Date().toUTCString()}\n/${awsBackupCredentials.bucket}/${objectKey}`
+  const signature = crypto.createHmac('sha1', awsBackupCredentials.secretAccessKey).update(stringToSign).digest('base64')
+  return `AWS ${awsBackupCredentials.accessKeyId}:${signature}`
+}
+
 export const cutOffPoisonNullByte = (str: string) => {
   const nullByte = '%00'
   if (utils.contains(str, nullByte)) {
