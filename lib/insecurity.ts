@@ -44,8 +44,8 @@ export const hash = (data: string) => crypto.createHash('md5').update(data).dige
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
 
 const awsBackupCredentials = {
-  accessKeyId: 'AKIAIOSFODNN73GA5601',
-  secretAccessKey: 'wJalrXUtnFEAB/K7MDENG/bPxRfiCYEXAMPLEKEY',
+  accessKeyId: 'AKIAIOSFODNN73GA5602',
+  secretAccessKey: 'wJalrXUtnFEAC/K7MDENG/bPxRfiCYEXAMPLEKEY',
   region: 'us-east-1',
   bucket: 'juice-shop-legacy-backups'
 }
