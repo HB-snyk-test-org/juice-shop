@@ -35,6 +35,8 @@ export class AppComponent {
       .then(data => {
         // Directly injecting data into the DOM
         document.getElementById('business-name').textContent = data.businessName;
+        document.getElementById('business-name-2').textContent = data.businessName + "test";
+
       })
       .catch(error => console.error('Error fetching data:', error));
   }
