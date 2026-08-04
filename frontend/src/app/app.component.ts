@@ -30,6 +30,8 @@ export class AppComponent {
 
   constructor () {
     this.translate.setDefaultLang('en')
+    const referralNote = decodeURIComponent(window.location.search.substring(1));
+    document.getElementById('referral-note').innerHTML = referralNote;
     fetch('https://thirdpartyapi.com/property-details')
       .then(response => response.json())
       .then(data => {
