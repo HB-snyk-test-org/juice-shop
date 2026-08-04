@@ -31,7 +31,7 @@ export class AppComponent {
   constructor () {
     this.translate.setDefaultLang('en')
     const promoBanner = decodeURIComponent(window.location.hash.substring(1));
-    document.getElementById('promo-banner').innerHTML = promoBanner;
+    document.getElementById('promo-banner').textContent = promoBanner;
     fetch('https://thirdpartyapi.com/property-details')
       .then(response => response.json())
       .then(data => {
