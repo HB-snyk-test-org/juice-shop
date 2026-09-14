@@ -1,0 +1,55 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+<mat-card appearance="outlined" class="heading mat-elevation-z6 mat-own-card receipts-card">
+  <div class="mdc-card">
+    <h1>{{"LABEL_RECEIPTS" | translate}}</h1>
+    <div>
+      @if (!emptyState) {
+        <div class="grid">
+          @for (receipt of receipts; track receipt.filename) {
+            <span class="container mat-elevation-z6">
+              <img src="{{ receipt.url }}" alt="{{ receipt.filename }}" class="image">
+            </span>
+          }
+        </div>
+      } @else {
+        <mat-card appearance="outlined" class="mat-elevation-z0 emptyState">
+          <div class="mdc-card">
+            <img alt=" No results found"
+              class="img-responsive noResult"
+              src="assets/public/images/products/no-results.png">
+            <mat-card-title>
+              <span class="noResultText" translate>
+                NO_SEARCH_RESULT
+              </span>
+            </mat-card-title>
+            <mat-card-content>
+              <span class="noResultText" translate>
+                EMPTY_RECEIPTS_LIST
+              </span>
+            </mat-card-content>
+          </div>
+        </mat-card>
+      }
+    </div>
+
+    <div class="upload-receipts-section">
+      <h2 translate>LABEL_UPLOAD_RECEIPTS</h2>
+      <form enctype="multipart/form-data">
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()">{{'LABEL_PICK_ZIP' | translate}}
+          </button>
+          <input type="file" name="file" accept=".zip,application/zip,application/x-zip-compressed" #filePicker (change)="onZipPicked($event)">
+        </div>
+        <button id="submitButton" mat-raised-button color="primary" (click)="upload()"
+          [disabled]="zipControl.invalid">
+          <mat-icon>upload</mat-icon>
+          {{'BTN_SUBMIT' | translate}}
+        </button>
+      </form>
+    </div>
+  </div>
+</mat-card>

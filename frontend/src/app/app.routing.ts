@@ -39,6 +39,7 @@ import { WalletComponent } from './wallet/wallet.component'
 import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
+import { ReceiptsComponent } from './receipts/receipts.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
@@ -137,6 +138,11 @@ const routes: Routes = [
   {
     path: 'order-history',
     component: OrderHistoryComponent
+  },
+  {
+    path: 'receipts',
+    component: ReceiptsComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'payment/:entity',
