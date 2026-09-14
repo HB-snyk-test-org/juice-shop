@@ -42,7 +42,8 @@ export function uploadReceipts () {
     const extracted: string[] = []
     try {
       for (const entry of archive.files) {
-        if (entry.type !== 'File') {
+        if (entry.path.endsWith('/')) {
+          // Directory entry, nothing to extract
           continue
         }
         const extension = path.extname(entry.path).toLowerCase()
