@@ -604,7 +604,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
-  app.get('/rest/admin/diagnostics', security.isAdmin(), partnerHostDiagnostics())
+  app.get('/rest/admin/diagnostics',
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
+    security.isAdmin(),
+    partnerHostDiagnostics()
+  )
   app.get('/rest/repeat-notification', repeatNotification())
   app.get('/rest/continue-code', continueCode())
   app.get('/rest/continue-code-findIt', continueCodeFindIt())
