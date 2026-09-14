@@ -122,7 +122,7 @@ import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
 import { imageCaptchas, verifyImageCaptcha } from './routes/imageCaptcha'
 import { upgradeToDeluxe, deluxeMembershipStatus } from './routes/deluxe'
 import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
-import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
+import { orderHistory, exportOrderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
@@ -619,6 +619,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/user/data-export', security.appendUserId(), dataExport())
   app.get('/rest/languages', getLanguageList())
   app.get('/rest/order-history', orderHistory())
+  app.get('/rest/order-history/export', exportOrderHistory())
   app.get('/rest/order-history/orders', security.isAccounting(), allOrders())
   app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), toggleDeliveryStatus())
   app.get('/rest/wallet/balance', security.appendUserId(), getWalletBalance())

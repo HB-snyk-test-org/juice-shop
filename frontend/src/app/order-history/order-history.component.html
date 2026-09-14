@@ -7,6 +7,11 @@
   <div class="mdc-card mat-card-cvr">
     <mat-card-title>
       {{"LABEL_ORDER_HISTORY" | translate}}
+      @if (!emptyState) {
+        <button mat-icon-button aria-label="Export order history as CSV" matTooltip="{{ 'EXPORT_ORDER_HISTORY' | translate }}" matTooltipPosition="below" (click)="exportCsv()">
+          <mat-icon>download</mat-icon>
+        </button>
+      }
     </mat-card-title>
 
     @if (!emptyState) {

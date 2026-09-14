@@ -305,6 +305,7 @@
   "PAYMENT_METHOD": "Payment Method",
   "PHONE_NUMBER": "Phone Number",
   "LABEL_ORDER_HISTORY": "Order History",
+  "EXPORT_ORDER_HISTORY": "Export as CSV",
   "LABEL_IN_TRANSIT": "In Transit",
   "LABEL_DELIVERED": "Delivered",
   "LABEL_TRACK_ORDER": "Track Order",
