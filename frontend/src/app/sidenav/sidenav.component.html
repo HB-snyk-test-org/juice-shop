@@ -78,6 +78,17 @@
           </a>
         }
         @if (isLoggedIn()) {
+          <a mat-list-item routerLink="/receipts"
+            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to receipts page">
+            <mat-icon>
+              receipt
+            </mat-icon>
+            <span class="menu-text truncate">
+              {{"LABEL_RECEIPTS" | translate}}
+            </span>
+          </a>
+        }
+        @if (isLoggedIn()) {
           <a mat-list-item routerLink="/recycle"
             (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to recycling page">
             <mat-icon>
