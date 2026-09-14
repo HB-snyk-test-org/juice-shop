@@ -347,3 +347,6 @@ ctf:
     passwordHashLeakChallenge:
       name: Italy
       code: IT
+    commandInjectionChallenge:
+      name: Portugal
+      code: PT

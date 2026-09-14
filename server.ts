@@ -69,6 +69,7 @@ import * as verify from './routes/verify'
 import * as address from './routes/address'
 import * as chatbot from './routes/chatbot'
 import * as metrics from './routes/metrics'
+import { partnerHostDiagnostics } from './routes/diagnostics'
 import * as payment from './routes/payment'
 import { placeOrder } from './routes/order'
 import { b2bOrder } from './routes/b2bOrder'
@@ -122,7 +123,7 @@ import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
 import { imageCaptchas, verifyImageCaptcha } from './routes/imageCaptcha'
 import { upgradeToDeluxe, deluxeMembershipStatus } from './routes/deluxe'
 import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
-import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
+import { orderHistory, exportOrderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
@@ -603,6 +604,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
+  app.get('/rest/admin/diagnostics',
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
+    security.isAdmin(),
+    partnerHostDiagnostics()
+  )
   app.get('/rest/repeat-notification', repeatNotification())
   app.get('/rest/continue-code', continueCode())
   app.get('/rest/continue-code-findIt', continueCodeFindIt())
@@ -619,6 +625,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/user/data-export', security.appendUserId(), dataExport())
   app.get('/rest/languages', getLanguageList())
   app.get('/rest/order-history', orderHistory())
+  app.get('/rest/order-history/export', exportOrderHistory())
   app.get('/rest/order-history/orders', security.isAccounting(), allOrders())
   app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), toggleDeliveryStatus())
   app.get('/rest/wallet/balance', security.appendUserId(), getWalletBalance())

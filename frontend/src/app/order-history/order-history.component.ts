@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
+import { saveAs } from 'file-saver'
 
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
@@ -112,6 +113,15 @@ export class OrderHistoryComponent implements OnInit {
   openConfirmationPDF (orderId: string) {
     const redirectUrl = `${this.basketService.hostServer}/ftp/order_${orderId}.pdf`
     window.open(redirectUrl, '_blank')
+  }
+
+  exportCsv () {
+    this.orderHistoryService.exportCsv().subscribe({
+      next: (csv: string) => {
+        saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8' }), 'order-history.csv')
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   trackOrder (orderId) {
