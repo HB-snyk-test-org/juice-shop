@@ -69,6 +69,7 @@ import * as verify from './routes/verify'
 import * as address from './routes/address'
 import * as chatbot from './routes/chatbot'
 import * as metrics from './routes/metrics'
+import { partnerHostDiagnostics } from './routes/diagnostics'
 import * as payment from './routes/payment'
 import { placeOrder } from './routes/order'
 import { b2bOrder } from './routes/b2bOrder'
@@ -603,6 +604,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
+  app.get('/rest/admin/diagnostics', security.isAdmin(), partnerHostDiagnostics())
   app.get('/rest/repeat-notification', repeatNotification())
   app.get('/rest/continue-code', continueCode())
   app.get('/rest/continue-code-findIt', continueCodeFindIt())
