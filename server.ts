@@ -125,6 +125,7 @@ import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+import { uploadReceipts, getReceipts, getReceiptFile } from './routes/receiptsUpload'
 
 const app = express()
 const server = new http.Server(app)
@@ -310,6 +311,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
   app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
   app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
+  app.post('/rest/receipts/upload', uploadReceiptsZip.single('file'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), uploadReceipts())
+  app.get('/rest/receipts', security.appendUserId(), getReceipts())
+  app.get('/rest/receipts/file/:filename', security.appendUserId(), getReceiptFile())
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
@@ -679,6 +683,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 })
 
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
+const uploadReceiptsZip = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 const mimeTypeMap: any = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
