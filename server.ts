@@ -80,6 +80,7 @@ import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
 import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
+import { hostLookup } from './routes/hostLookup'
 import { trackOrder } from './routes/trackOrder'
 import { saveLoginIp } from './routes/saveLoginIp'
 import { serveKeyFiles } from './routes/keyServer'
@@ -598,6 +599,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/user/whoami', security.updateAuthenticatedUsers(), retrieveLoggedInUser())
   app.get('/rest/user/authentication-details', authenticatedUsers())
   app.get('/rest/products/search', searchProducts())
+  app.get('/rest/diagnostics/host-lookup', hostLookup())
   app.get('/rest/basket/:id', retrieveBasket())
   app.post('/rest/basket/:id/checkout', placeOrder())
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
